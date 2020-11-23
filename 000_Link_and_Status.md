@@ -20,7 +20,7 @@ This is a web page form that lets a user enter a city/state, and then displays c
 
 #### STATUS
 
-5% Complete. Project initiated and is in the design stage. A rough UI has been drawn on a white board.
+~60% Complete. Initial GUI has been created with dummy data in place. Now it is time to move on to the actual coding to make the form work.
 
 
 #### SOURCE
