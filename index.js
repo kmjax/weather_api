@@ -34,8 +34,12 @@ console.log("TEST C");
 // Create other variables
 const owmBaseIconURL = "https://openweathermap.org/img/wn/";
 let owmQueryURL = "";
+let stateCode = "";
 
 console.log("TEST D");
+
+// Reset Page Elements
+ResetPageOutputElements();
 
 // Add an event listener to handle a Calculate request
 queryForm.addEventListener("submit", async (event) => {
@@ -44,26 +48,50 @@ queryForm.addEventListener("submit", async (event) => {
     // Grab the form input values
     let cityName = cityInput.value;
     console.log(cityName);
-    let stateCode = stateInput.value;
+    stateCode = stateInput.value;
     console.log(stateCode);
     // Create OWM (Open Weather Map) query string
     owmQueryURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName},${stateCode},USA&appid=3773a165f8a5e3362d333b9c2856faaa&units=imperial`;
     console.log(owmQueryURL);
     // Fetch the data
     const res = await fetch(owmQueryURL);
-    const owmData = await res.json();
+    let owmData = await res.json();
     console.log(owmData);
 
-    // TODO: add 404 check to make sure a valid city query was completed.
-    //       otherwise, clear the data fields...
-
-    // Populate city title, current conditions, and sun rise/set
-    cityTitle.textContent = `Weather for ${owmData.name}, ${stateCode}`;
-    let owmCurrentIconURL = `${owmBaseIconURL}${owmData.weather[0].icon}.png`;
-    console.log(owmCurrentIconURL);
-    currentIcon.setAttribute("src", owmCurrentIconURL);
-    currentDescription.textContent = owmData.weather[0].description;
+    // Check the returned status code from the query.
+    // If it is 200, then display the data. Otherwise, reset page elements
+    // and display the returned error message.
+    let owmQueryResultCode = owmData.cod;
+    console.log(owmQueryResultCode);
+    if (owmQueryResultCode == 200) {
+      SetPageOutputElements(owmData);
+    } else {
+      ResetPageOutputElements();
+      cityTitle.textContent = owmData.message;
+    }
   } catch (error) {
     console.log(error.message);
   }
 });
+
+function SetPageOutputElements(weatherData) {
+  // Populate city title, current conditions, and sunrise/set
+  cityTitle.textContent = `Weather for ${weatherData.name}, ${stateCode}`;
+  let owmCurrentIconURL = `${owmBaseIconURL}${weatherData.weather[0].icon}.png`;
+  console.log(owmCurrentIconURL);
+  currentIcon.setAttribute("src", owmCurrentIconURL);
+  currentDescription.textContent = weatherData.weather[0].description;
+
+  // remove the dimmed text color
+  cityTitle.classList.remove("dimmed-color");
+  currentDescription.classList.remove("dimmed-color");
+}
+
+function ResetPageOutputElements() {
+  // Reset city titule, current conditions, and sunrise/set
+  cityTitle.textContent = "Enter city/state and click Get Weather";
+  currentDescription.textContent = "unknown condition";
+  cityTitle.classList.add("dimmed-color");
+  currentIcon.setAttribute("src", "images/square.png");
+  currentDescription.classList.add("dimmed-color");
+}

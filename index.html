@@ -64,19 +64,37 @@
         </div>
         <div class="flex-container" id="current-sun-row">
           <div id="current-left">
-            <!-- <span id="current-icon">[=]</span>&nbsp; -->
             <img
-              src=""
-              alt="Icon of current weather conditions"
+              src="images/square.png"
+              alt="Icon of current weather
+            conditions"
               id="current-icon"
-            />
+              class="weather-icon"
+            />&nbsp;
             <span id="current-description">Partly Cloudy</span>
           </div>
           <div id="current-right">
-            <span id="sunrise-icon">[=]</span>&nbsp;
-            <span id="sunrise-time">6:00 am</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span id="sunset-icon">[=]</span>&nbsp;
-            <span id="sunset-time">5:00 pm</span>
+            <table>
+              <tr>
+                <td>
+                  <img
+                    src="images/sunrise.png"
+                    alt="sunrise icon"
+                    class="weather-icon"
+                    id="sunrise-icon"
+                  />&nbsp;
+                  <span id="sunrise-time">6:00 am</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td>
+                  <img
+                    src="images/sunset.png"
+                    alt="sunset icon"
+                    class="weather-icon"
+                    id="sunset-icon"
+                  />&nbsp;&nbsp; <span id="sunset-time">5:00 pm</span>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
         <div class="flex-container" id="wind-vis-row">
