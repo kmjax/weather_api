@@ -15,12 +15,12 @@ This is a web page form that lets a user enter a city/state, and then displays c
 - d) visibility
 - e) wind speed and compass direction
 - f) Sunrise and Sunset
-- g) 5 day forecast  (**** maybe/maybe NOT! this is not set in stone)
+- g) 4 day forecast  (**** maybe/maybe NOT! this is not set in stone)
 
 
 #### STATUS
 
-~60% Complete. Initial GUI has been created with dummy data in place. Now it is time to move on to the actual coding to make the form work.
+~70% Complete. Base query is working and returning data from OpenWeatherMap.org. Only a few fields are displaying retrieved data. Next step is to implement error handling to ensure a city was retrieved, and then to write functions to populate all of the "fields" (html elements) on the page, or to clear all of the "fields" in the case that no city data was returned from the query.
 
 
 #### SOURCE

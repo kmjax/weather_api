@@ -12,77 +12,58 @@
 //   "Hello World\nThis lets us know the JavaScript\nsource is linked with this page.\n\nThis form is non-functional at the moment."
 // );
 
-/**  ************************************************************
- **                                                            **
- **  NONE OF THE CODE BELOW IS RELEVANT TO THIS PROJECT !!!!!  **
- **                                                            **
- **  I will reuse some of it, but for now don't pay attention  **
- **  to it...                                                  **
- **                                                            **
- **  ************************************************************
- */
+console.log("TEST A");
 
-// // Grab references to the form and it's controls
-// const tipForm = document.getElementById("tip-form");
-// const billAmountInput = document.getElementById("bill-amount");
-// const serviceRatingInput = document.getElementById("service-rating");
-// const dinerCountInput = document.getElementById("diner-count");
-// const tipAmountLabel = document.getElementById("tip-label");
-// const tipAmountOutput = document.getElementById("tip-amount");
-// const calcButton = document.getElementById("calc-btn");
+// Grab references to the form and its input controls
+const queryForm = document.getElementById("query-form");
+const cityInput = document.getElementById("city-input");
+const stateInput = document.getElementById("state-input");
+console.log(queryForm);
+console.log(cityInput);
+console.log(stateInput);
 
-// // Define function to Calculate a Tip
-// const calculateTip = (bill_amount, service_rating, diner_count) => {
-//   let tipPercent = 0.0; // tip percentage
-//   let totalTip = 0.0; // calculated total tip
-//   let tipPerDiner = 0.0; // tip amount per diner
+console.log("TEST B");
 
-//   // first, get the tip percentage based on the service rating
-//   switch (service_rating) {
-//     case "excellent":
-//       tipPercent = 0.25;
-//       break;
-//     case "good":
-//       tipPercent = 0.2;
-//       break;
-//     case "ok":
-//       tipPercent = 0.15;
-//       break;
-//     case "mediocre":
-//       tipPercent = 0.1;
-//       break;
-//     case "terrible":
-//       tipPercent = 0.05;
-//       break;
-//   }
+// Grab references to the output items
+const cityTitle = document.getElementById("city-title");
+const currentIcon = document.getElementById("current-icon");
+const currentDescription = document.getElementById("current-description");
 
-//   // now, calculate the total tip for the bill
-//   totalTip = bill_amount * tipPercent;
+console.log("TEST C");
 
-//   // finally, calculate the total owed by each diner
-//   tipPerDiner = totalTip / diner_count;
+// Create other variables
+const owmBaseIconURL = "https://openweathermap.org/img/wn/";
+let owmQueryURL = "";
 
-//   // return calculated result
-//   return tipPerDiner;
-// };
+console.log("TEST D");
 
-// // Add an event listener to handle a Calculate request
-// tipForm.addEventListener("submit", (event) => {
-//   event.preventDefault();
+// Add an event listener to handle a Calculate request
+queryForm.addEventListener("submit", async (event) => {
+  try {
+    event.preventDefault();
+    // Grab the form input values
+    let cityName = cityInput.value;
+    console.log(cityName);
+    let stateCode = stateInput.value;
+    console.log(stateCode);
+    // Create OWM (Open Weather Map) query string
+    owmQueryURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName},${stateCode},USA&appid=3773a165f8a5e3362d333b9c2856faaa&units=imperial`;
+    console.log(owmQueryURL);
+    // Fetch the data
+    const res = await fetch(owmQueryURL);
+    const owmData = await res.json();
+    console.log(owmData);
 
-//   // Grab the form input values
-//   let billAmount = billAmountInput.value;
-//   let serviceRating = serviceRatingInput.value;
-//   let dinerCount = dinerCountInput.value;
+    // TODO: add 404 check to make sure a valid city query was completed.
+    //       otherwise, clear the data fields...
 
-//   // Calculate a tip based on form inputs
-//   let tip = calculateTip(billAmount, serviceRating, dinerCount);
-
-//   // Create the tip amount fixed string to only display two decimal places
-//   let tipFixed = tip.toFixed(2);
-
-//   // Finally, display tip amount and darken text color (which was dimmed)
-//   tipAmountOutput.textContent = tipFixed;
-//   tipAmountLabel.setAttribute("style", "color: #333333");
-//   tipAmountOutput.setAttribute("style", "color: #333333");
-// });
+    // Populate city title, current conditions, and sun rise/set
+    cityTitle.textContent = `Weather for ${owmData.name}, ${stateCode}`;
+    let owmCurrentIconURL = `${owmBaseIconURL}${owmData.weather[0].icon}.png`;
+    console.log(owmCurrentIconURL);
+    currentIcon.setAttribute("src", owmCurrentIconURL);
+    currentDescription.textContent = owmData.weather[0].description;
+  } catch (error) {
+    console.log(error.message);
+  }
+});
