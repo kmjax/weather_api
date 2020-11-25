@@ -41,26 +41,40 @@ ResetPageOutputElements();
 queryForm.addEventListener("submit", async (event) => {
   try {
     event.preventDefault();
-    // Grab the form input values
+    // Grab the form's input values
     let cityName = cityInput.value;
-    console.log(cityName);
-    stateCode = stateInput.value;
-    console.log(stateCode);
+    stateCode = stateInput.value.toUpperCase();
+    let cityLat = 0.0;
+    let cityLong = 0.0;
+
     // Create OWM (Open Weather Map) query string
     owmQueryURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName},${stateCode},USA&appid=3773a165f8a5e3362d333b9c2856faaa&units=imperial`;
-    console.log(owmQueryURL);
+    // console.log(owmQueryURL);
+
     // Fetch the data
-    const res = await fetch(owmQueryURL);
-    let owmData = await res.json();
+    const owmResult = await fetch(owmQueryURL);
+    let owmData = await owmResult.json();
     console.log(owmData);
 
-    // Check the returned status code from the query.
-    // If it is 200, then display the data. Otherwise, reset page elements
-    // and display the returned error message.
+    // Check the returned status code from the query. If it
+    // is 200 (successful), then make the next query using the
+    // lat/lon from the first query. If the 2nd query is
+    // also 200 (successful), then process and display the data.
+    // Otherwise, reset page elements and display the returned
+    // error message.
     let owmQueryResultCode = owmData.cod;
-    console.log(owmQueryResultCode);
+    // console.log(owmQueryResultCode);
     if (owmQueryResultCode == 200) {
-      SetPageOutputElements(owmData);
+      // Grab the lat/lon of the city
+      cityLat = owmData.coord.lat;
+      cityLong = owmData.coord.lon;
+      // Create the next OWM query string
+      owmQueryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat.toString()}&lon=${cityLong.toString()}&exclude=minutely,hourly&appid=3773a165f8a5e3362d333b9c2856faaa&units=imperial`;
+      const owmResult2 = await fetch(owmQueryURL);
+      let owmData2 = await owmResult2.json();
+      console.log(owmData2);
+      // Call the function to process and display the fetched data
+      SetPageOutputElements(owmData, owmData2);
     } else {
       ResetPageOutputElements();
       cityTitle.textContent = owmData.message;
@@ -70,7 +84,7 @@ queryForm.addEventListener("submit", async (event) => {
   }
 });
 
-function SetPageOutputElements(weatherData) {
+function SetPageOutputElements(weatherData, onecallData) {
   // Populate city title, current conditions, and sunrise/set
   cityTitle.textContent = `Weather for ${weatherData.name}, ${stateCode}`;
   let owmCurrentIconURL = `${owmBaseIconURL}${weatherData.weather[0].icon}.png`;
