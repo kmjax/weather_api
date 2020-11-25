@@ -20,7 +20,7 @@ This is a web page form that lets a user enter a city/state, and then displays c
 
 #### STATUS
 
-~75% Complete. Base query is working and returning data from OpenWeatherMap.org. Only a few fields are displaying retrieved data. Functions were created to display the fetched data as well as reset/dim text when there is no data to be displayed. The query result code is now being checked for "200" that indicates it was successful. When successful, the data is then displayed --otherwise the associated query error message is displayed and fields are reset/dimmed. The entire core of the logic is now in place and functional --just need to finish fetching and displaying data for all webpage elements.
+~80% Complete. Base query is working and returning data from OpenWeatherMap.org. The following information is displayed: conditions, sunrise/set, wind speed, and visibility. Next up is to tackle the temperatures block followed by the four day forecast.
 
 
 #### SOURCE
