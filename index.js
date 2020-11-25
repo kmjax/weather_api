@@ -26,6 +26,8 @@ const sunsetTime = document.getElementById("sunset-time");
 const windSpeed = document.getElementById("wind-speed");
 const windDirection = document.getElementById("wind-direction");
 const visibility = document.getElementById("visibility");
+const currentTemp = document.getElementById("current-temp");
+const humidty = document.getElementById("humidity");
 
 // Create other variables
 const owmBaseIconURL = "https://openweathermap.org/img/wn/";
@@ -77,11 +79,17 @@ function SetPageOutputElements(weatherData) {
   currentDescription.textContent = weatherData.weather[0].description;
   sunriseTime.textContent = getTimeFromUnixTimestamp(weatherData.sys.sunrise);
   sunsetTime.textContent = getTimeFromUnixTimestamp(weatherData.sys.sunset);
+
+  // Populate wind speed and direction, and visibility
   windSpeed.textContent = `${weatherData.wind.speed.toFixed(1)} mph`;
   windDirection.textContent = getCardinalDirectionFromDegrees(
     weatherData.wind.deg
   );
   visibility.textContent = `${formatThousands(weatherData.visibility)} ft`;
+
+  // Populate current temperature data panel (temps and humidity)
+  currentTemp.innerHTML = `${weatherData.main.temp.toFixed(1)}&deg; F`;
+  humidty.innerHTML = `${weatherData.main.humidity}%`;
 
   // remove the dimmed text color
   cityTitle.classList.remove("dimmed-color");
@@ -91,6 +99,8 @@ function SetPageOutputElements(weatherData) {
   windSpeed.classList.remove("dimmed-color");
   windDirection.classList.remove("dimmed-color");
   visibility.classList.remove("dimmed-color");
+  currentTemp.classList.remove("dimmed-color");
+  humidity.classList.remove("dimmed-color");
 }
 
 function ResetPageOutputElements() {
@@ -100,6 +110,8 @@ function ResetPageOutputElements() {
   currentDescription.textContent = "Unknown conditions";
   sunriseTime.textContent = "-:-- am";
   sunsetTime.textContent = "-:-- pm";
+  currentTemp.innerHTML = "--.- &deg; F";
+  humidity.innerHTML = "--%";
 
   // Reset wind and visibility
   windSpeed.textContent = "0 mph";
@@ -114,6 +126,8 @@ function ResetPageOutputElements() {
   windSpeed.classList.add("dimmed-color");
   windDirection.classList.add("dimmed-color");
   visibility.classList.add("dimmed-color");
+  currentTemp.classList.add("dimmed-color");
+  humidity.classList.add("dimmed-color");
 }
 
 // Conversion Functions
@@ -137,8 +151,6 @@ function getTimeFromUnixTimestamp(unixTimestamp) {
   let timeString = `${hours.toString()}:${minutes
     .toString()
     .padStart(2, "0")} ${ampm}`;
-  // let timeString = `${weatherDate.toLocaleDateString("en-US", {
-  //   hour: "numeric"})}:${weatherDate.toLocaleDateString("en-US", { minute: "numeric" })}`;
   console.log(timeString);
   return timeString;
 }
