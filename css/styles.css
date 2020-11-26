@@ -119,21 +119,21 @@ body {
 
 #current-left-1 {
   background-color: #440044;
-  padding: 15px 20px 10px 20px;
+  padding: 15px 17px 10px 17px;
   border-radius: 16px;
   text-align: center;
 }
 
 #current-center-1 {
   background-color: #440044;
-  padding: 10px 20px 10px 20px;
+  padding: 10px 17px 10px 17px;
   border-radius: 16px;
   text-align: right;
 }
 
 #current-right-1 {
   background-color: #440044;
-  padding: 10px 20px 10px 20px;
+  padding: 10px 17px 10px 17px;
   border-radius: 16px;
   text-align: right;
 }

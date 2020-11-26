@@ -23,11 +23,17 @@ const currentIcon = document.getElementById("current-icon");
 const currentDescription = document.getElementById("current-description");
 const sunriseTime = document.getElementById("sunrise-time");
 const sunsetTime = document.getElementById("sunset-time");
+const currentTemp = document.getElementById("current-temp");
+const feelsLike = document.getElementById("feels-like");
+const lowTemp = document.getElementById("low-temp");
+const highTemp = document.getElementById("high-temp");
+const humidty = document.getElementById("humidity");
+const uvIndex = document.getElementById("uv-index");
+const dewPoint = document.getElementById("dew-point");
 const windSpeed = document.getElementById("wind-speed");
 const windDirection = document.getElementById("wind-direction");
+const cloudCoverage = document.getElementById("cloud-coverage");
 const visibility = document.getElementById("visibility");
-const currentTemp = document.getElementById("current-temp");
-const humidty = document.getElementById("humidity");
 
 // Create other variables
 const owmBaseIconURL = "https://openweathermap.org/img/wn/";
@@ -84,8 +90,29 @@ queryForm.addEventListener("submit", async (event) => {
 });
 
 function SetPageOutputElements(weatherData, onecallData) {
-  // Populate city title, current conditions, and sunrise/set
+  // Populate city title
   cityTitle.textContent = `Weather for ${weatherData.name}, ${stateCode}`;
+
+  // Populate temperatures
+  currentTemp.innerHTML = `${weatherData.main.temp.toFixed(1)}&deg; F`;
+  feelsLike.innerHTML = `${weatherData.main.feels_like.toFixed(1)}&deg; F`;
+  lowTemp.innerHTML = `${onecallData.daily[0].temp.min.toFixed(1)}&deg; F`;
+  highTemp.innerHTML = `${onecallData.daily[0].temp.max.toFixed(1)}&deg; F`;
+
+  // Populate humidity, uv index, and dew point
+  humidty.innerHTML = `${weatherData.main.humidity}%`;
+  uvIndex.textContent = onecallData.current.uvi.toFixed(1);
+  dewPoint.innerHTML = `${onecallData.current.dew_point.toFixed(1)}&deg; F`;
+
+  // Populate wind speed and direction, and visibility
+  windSpeed.textContent = `${weatherData.wind.speed.toFixed(1)} mph`;
+  windDirection.textContent = getCardinalDirectionFromDegrees(
+    weatherData.wind.deg
+  );
+  cloudCoverage.innerHTML = `${onecallData.current.clouds.toString()}%`;
+  visibility.textContent = `${formatThousands(weatherData.visibility)} ft`;
+
+  // Populate current conditions and sunrise/set
   let owmCurrentIconURL = `${owmBaseIconURL}${weatherData.weather[0].icon}.png`;
   console.log(owmCurrentIconURL);
   currentIcon.setAttribute("src", owmCurrentIconURL);
@@ -93,27 +120,22 @@ function SetPageOutputElements(weatherData, onecallData) {
   sunriseTime.textContent = getTimeFromUnixTimestamp(weatherData.sys.sunrise);
   sunsetTime.textContent = getTimeFromUnixTimestamp(weatherData.sys.sunset);
 
-  // Populate wind speed and direction, and visibility
-  windSpeed.textContent = `${weatherData.wind.speed.toFixed(1)} mph`;
-  windDirection.textContent = getCardinalDirectionFromDegrees(
-    weatherData.wind.deg
-  );
-  visibility.textContent = `${formatThousands(weatherData.visibility)} ft`;
-
-  // Populate current temperature data panel (temps and humidity)
-  currentTemp.innerHTML = `${weatherData.main.temp.toFixed(1)}&deg; F`;
-  humidty.innerHTML = `${weatherData.main.humidity}%`;
-
   // remove the dimmed text color
   cityTitle.classList.remove("dimmed-color");
   currentDescription.classList.remove("dimmed-color");
   sunriseTime.classList.remove("dimmed-color");
   sunsetTime.classList.remove("dimmed-color");
+  currentTemp.classList.remove("dimmed-color");
+  feelsLike.classList.remove("dimmed-color");
+  lowTemp.classList.remove("dimmed-color");
+  highTemp.classList.remove("dimmed-color");
+  humidity.classList.remove("dimmed-color");
+  uvIndex.classList.remove("dimmed-color");
+  dewPoint.classList.remove("dimmed-color");
   windSpeed.classList.remove("dimmed-color");
   windDirection.classList.remove("dimmed-color");
+  cloudCoverage.classList.remove("dimmed-color");
   visibility.classList.remove("dimmed-color");
-  currentTemp.classList.remove("dimmed-color");
-  humidity.classList.remove("dimmed-color");
 }
 
 function ResetPageOutputElements() {
@@ -124,11 +146,17 @@ function ResetPageOutputElements() {
   sunriseTime.textContent = "-:-- am";
   sunsetTime.textContent = "-:-- pm";
   currentTemp.innerHTML = "--.- &deg; F";
-  humidity.innerHTML = "--%";
+  feelsLike.innerHTML = "--.- &deg; F";
+  lowTemp.innerHTML = "--.- &deg; F";
+  highTemp.innerHTML = "--.- &deg; F";
+  humidity.textContent = "--%";
+  uvIndex.textContent = "-.-";
+  dewPoint.innerHTML = "--.- &deg; F";
 
   // Reset wind and visibility
   windSpeed.textContent = "0 mph";
   windDirection.textContent = "";
+  cloudCoverage.textContent = "--%";
   visibility.textContent = "------ ft";
 
   // Dim out all of these page elements
@@ -136,14 +164,22 @@ function ResetPageOutputElements() {
   currentDescription.classList.add("dimmed-color");
   sunriseTime.classList.add("dimmed-color");
   sunsetTime.classList.add("dimmed-color");
+  currentTemp.classList.add("dimmed-color");
+  feelsLike.classList.add("dimmed-color");
+  lowTemp.classList.add("dimmed-color");
+  highTemp.classList.add("dimmed-color");
+  humidity.classList.add("dimmed-color");
+  uvIndex.classList.add("dimmed-color");
+  dewPoint.classList.add("dimmed-color");
   windSpeed.classList.add("dimmed-color");
   windDirection.classList.add("dimmed-color");
+  cloudCoverage.classList.add("dimmed-color");
   visibility.classList.add("dimmed-color");
-  currentTemp.classList.add("dimmed-color");
-  humidity.classList.add("dimmed-color");
 }
 
+// =====================================================================
 // Conversion Functions
+// =====================================================================
 
 // Convert unix timestamp to a time string (i.e., 11:22 am)
 function getTimeFromUnixTimestamp(unixTimestamp) {
