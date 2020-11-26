@@ -58,10 +58,9 @@ queryForm.addEventListener("submit", async (event) => {
 
     // Check the returned status code from the query. If it
     // is 200 (successful), then make the next query using the
-    // lat/lon from the first query. If the 2nd query is
-    // also 200 (successful), then process and display the data.
-    // Otherwise, reset page elements and display the returned
-    // error message.
+    // lat/lon from the first query. Next, process and display
+    // the data. Otherwise, reset page elements and display
+    // the returned error message.
     let owmQueryResultCode = owmData.cod;
     // console.log(owmQueryResultCode);
     if (owmQueryResultCode == 200) {

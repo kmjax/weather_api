@@ -111,34 +111,99 @@ body {
   margin-bottom: 20px;
 }
 
+#temperatures-row {
+  margin: 10px 30px 5px 30px;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+#current-left-1 {
+  background-color: #440044;
+  padding: 15px 20px 10px 20px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+#current-center-1 {
+  background-color: #440044;
+  padding: 10px 20px 10px 20px;
+  border-radius: 16px;
+  text-align: right;
+}
+
+#current-right-1 {
+  background-color: #440044;
+  padding: 10px 20px 10px 20px;
+  border-radius: 16px;
+  text-align: right;
+}
+
+#current-temp {
+  font-size: 35px;
+}
+
+.p-temp {
+  margin: 5px;
+}
+
+#wind-clouds-row {
+  background-color: #440044;
+  margin: 15px 30px 5px 30px;
+  padding: 10px 20px 10px 20px;
+  border-radius: 16px;
+  justify-content: space-between;
+}
 #current-sun-row {
-  margin: 10px 25px 5px 25px;
+  background-color: #440044;
+  margin: 15px 30px 5px 30px;
   flex-flow: row nowrap;
+  border-radius: 16px;
+  padding: 10px 20px 10px 20px;
   justify-content: space-between;
 }
 
-#wind-vis-row {
-  margin: 5px 25px 5px 25px;
-  flex-flow: row nowrap;
-  justify-content: space-between;
+#current-description {
+  font-size: 26px;
 }
 
-#two-columns {
-  margin: 10px 25px 5px 25px;
-  flex-flow: nowrap;
-  justify-content: space-around;
-  padding-top: 20px;
-}
-
-#temperatures-column {
+#five-day-forecast-area {
+  margin: 15px 30px 5px 30px;
   background-color: #440044;
   padding: 10px 20px 10px 20px;
   border-radius: 16px;
 }
-#four-day-column {
-  background-color: #440044;
-  padding: 10px 20px 10px 20px;
-  border-radius: 16px;
+
+#p-5-day-title {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 24px;
+}
+
+#forecast-table {
+  width: 100%;
+}
+
+.forecast-row {
+  height: 35px;
+}
+
+.col-date {
+  width: 90px;
+  text-align: left;
+}
+
+.col-icon {
+  width: 30px;
+  text-align: center;
+}
+
+.col-desc {
+  text-align: left;
+}
+
+.col-temps {
+  width: 250px;
+  text-align: right;
 }
 
 .dimmed-color {
@@ -146,6 +211,12 @@ body {
 }
 
 .weather-icon {
+  float: left;
+  height: 30px;
+  width: 30px;
+}
+
+.forecast-icon {
   float: left;
   height: 25px;
   width: 25px;

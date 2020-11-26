@@ -15,13 +15,16 @@ This is a web page form that lets a user enter a city/state, and then displays c
 - d) visibility
 - e) wind speed and compass direction
 - f) Sunrise and Sunset
-- g) 4 day forecast (\*\*\*\* maybe/maybe NOT! this is not set in stone)
+- g) 5 day forecast (\*\*\*\* maybe/maybe NOT! this is not set in stone)
 
 #### STATUS
 
-~82% Complete. _Going to rewrite the data fetch!!!_ Going to use the base "weather" query to get some of the information and the lat/lon for the city. Next, will use the lat/lon for a new "onecall" query to get additional information including the daily highs and lows along with forcasted data.
+~85% Complete. User interface received a major overhaul. Better alignment and group of items. The same
+data as before is being displayed, no new data items yet.
 
-The original base query is working and returning data from OpenWeatherMap.org. The following information is displayed: conditions, sunrise/set, wind speed and direction, visibility, current temperature, and humidity.
+Previously: Overhauled the data fetch! The logic now uses the base "weather" query to get some of the information and the lat/lon for the city. Next, the lat/lon for a new "onecall" query to get additional information including the daily highs and lows along with forcast data for the next five days.
+
+So far, the data query is working and returning data from OpenWeatherMap.org. The following information is displayed: conditions, sunrise/set, wind speed and direction, visibility, current temperature, and humidity.
 
 #### SOURCE
 

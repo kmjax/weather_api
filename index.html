@@ -17,6 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=Chicle&family=Signika&family=Timmana&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" href="data:," />
     <title>Weather API</title>
     <link rel="stylesheet" href="css/styles.css" />
   </head>
@@ -62,8 +63,49 @@
         <div>
           <h2 id="city-title">Weather for Jacksonville, FL</h2>
         </div>
+
+        <!-- Temperatures Row -->
+        <div class="flex-container" id="temperatures-row">
+          <div id="current-left-1">
+            Currently<br />
+            <span id="current-temp">99.9&deg; F</span>
+          </div>
+          <div id="current-center-1">
+            <p class="p-temp">
+              Feels Like: <span id="feels-like">99.9&deg; F</span>
+            </p>
+            <p class="p-temp">Low: <span id="low-temp">99.9&deg; F</span></p>
+            <p class="p-temp">High: <span id="high-temp">99.9&deg; F</span></p>
+          </div>
+          <div id="current-right-1">
+            <p class="p-temp">Humidity: <span id="humidity">88%</span></p>
+            <p class="p-temp">UV Index: <span id="uv-index">9.9</span></p>
+            <p class="p-temp">
+              Dew Point: <span id="dew-point">99.9&deg; F</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Wind and Clouds Row -->
+        <div class="flex-container" id="wind-clouds-row">
+          <div id="wind-vis-left">
+            Wind: &nbsp;
+            <span id="wind-speed">99 mph</span>&nbsp;&nbsp;
+            <span id="wind-direction">SE</span>
+          </div>
+          <div id="wind-vis-center">
+            Cloudiness: &nbsp;
+            <span id="cloud-coverage">99%</span>
+          </div>
+          <div id="wind-vis-right">
+            Visibility: &nbsp;
+            <span id="visibility">10,000 ft</span>
+          </div>
+        </div>
+
+        <!-- Current Conditions and Sunrise/set Row -->
         <div class="flex-container" id="current-sun-row">
-          <div id="current-left">
+          <div id="current-left-2">
             <img
               src="images/square.png"
               alt="Icon of current weather
@@ -73,7 +115,7 @@
             />&nbsp;
             <span id="current-description">Partly Cloudy</span>
           </div>
-          <div id="current-right">
+          <div id="current-right-2">
             <table>
               <tr>
                 <td>
@@ -83,7 +125,7 @@
                     class="weather-icon"
                     id="sunrise-icon"
                   />&nbsp;
-                  <span id="sunrise-time">6:00 am</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span id="sunrise-time">6:00 am</span>&nbsp;&nbsp;&nbsp;
                 </td>
                 <td>
                   <img
@@ -97,54 +139,121 @@
             </table>
           </div>
         </div>
-        <div class="flex-container" id="wind-vis-row">
-          <div id="wind-vis-left">
-            Wind: &nbsp;
-            <span id="wind-speed">99 mph</span>&nbsp;&nbsp;
-            <span id="wind-direction">SE</span>
-          </div>
-          <div id="wind-vis-right">
-            Visibility: &nbsp;
-            <span id="visibility">10,000 ft</span>
-          </div>
-        </div>
-        <div class="flex-container" id="two-columns">
-          <div id="temperatures-column">
-            <p>Temperatures</p>
-            <p class="p-temp">
-              Current: &nbsp;<span id="current-temp">99.9&deg; F</span>
-            </p>
-            <p class="p-temp">Humidity: <span id="humidity">88%</span></p>
-            <p class="p-temp">
-              Low: <span id="current-temp">99.9&deg; F</span>
-            </p>
-            <p class="p-temp">
-              High: <span id="current-temp">99.9&deg; F</span>
-            </p>
-          </div>
-          <div id="four-day-column">
-            <p>Four Day Forecast</p>
-            <p id="day-1">
-              <span id="day-1-icon">[=]</span>&nbsp;
-              <span id="day-1-date">11/23</span>&nbsp;&nbsp;&nbsp;
-              <span id="day-1-temps">Low 99.9&deg;/High 99.9&deg; F</span>
-            </p>
-            <p id="day-2">
-              <span id="day-2-icon">[=]</span>&nbsp;
-              <span id="day-2-date">11/24</span>&nbsp;&nbsp;&nbsp;
-              <span id="day-2-temps">Low 99.9&deg;/High 99.9&deg; F</span>
-            </p>
-            <p id="day-3">
-              <span id="day-3-icon">[=]</span>&nbsp;
-              <span id="day-3-date">11/25</span>&nbsp;&nbsp;&nbsp;
-              <span id="day-3-temps">Low 99.9&deg;/High 99.9&deg; F</span>
-            </p>
-            <p id="day-4">
-              <span id="day-4-icon">[=]</span>&nbsp;
-              <span id="day-4-date">11/26</span>&nbsp;&nbsp;&nbsp;
-              <span id="day-4-temps">Low 99.9&deg;/High 99.9&deg; F</span>
-            </p>
-          </div>
+
+        <!-- Forecast Rows -->
+        <div id="five-day-forecast-area">
+          <p id="p-5-day-title">Five Day Forecast</p>
+          <table id="forecast-table">
+            <!-- Day 1 forecast -->
+            <tr class="forecast-row">
+              <td class="col-date">
+                <span id="day-1-date">11/23</span>
+              </td>
+              <td class="col-icon">
+                <img
+                  src="images/square.png"
+                  alt="Icon of current weather
+              conditions"
+                  id="day-1-icon"
+                  class="forecast-icon"
+                />
+              </td>
+              <td class="col-desc">
+                <span id="day-1-description">partly cloudy</span>
+              </td>
+              <td class="col-temps">
+                <span id="day-1-temps">Low 99.9&deg;/High 99.9&deg; F</span>
+              </td>
+            </tr>
+
+            <!-- Day 2 forecast -->
+            <tr class="forecast-row">
+              <td class="col-date">
+                <span id="day-2-date">11/23</span>
+              </td>
+              <td class="col-icon">
+                <img
+                  src="images/square.png"
+                  alt="Icon of current weather
+              conditions"
+                  id="day-2-icon"
+                  class="forecast-icon"
+                />
+              </td>
+              <td class="col-desc">
+                <span id="day-2-description">partly cloudy</span>
+              </td>
+              <td class="col-temps">
+                <span id="day-2-temps">Low 99.9&deg;/High 99.9&deg; F</span>
+              </td>
+            </tr>
+
+            <!-- Day 3 forecast -->
+            <tr class="forecast-row">
+              <td class="col-date">
+                <span id="day-3-date">11/23</span>
+              </td>
+              <td class="col-icon">
+                <img
+                  src="images/square.png"
+                  alt="Icon of current weather
+              conditions"
+                  id="day-3-icon"
+                  class="forecast-icon"
+                />
+              </td>
+              <td class="col-desc">
+                <span id="day-3-description">partly cloudy</span>
+              </td>
+              <td class="col-temps">
+                <span id="day-3-temps">Low 99.9&deg;/High 99.9&deg; F</span>
+              </td>
+            </tr>
+
+            <!-- Day 4 forecast -->
+            <tr class="forecast-row">
+              <td class="col-date">
+                <span id="day-4-date">11/23</span>
+              </td>
+              <td class="col-icon">
+                <img
+                  src="images/square.png"
+                  alt="Icon of current weather
+              conditions"
+                  id="day-4-icon"
+                  class="forecast-icon"
+                />
+              </td>
+              <td class="col-desc">
+                <span id="day-4-description">partly cloudy</span>
+              </td>
+              <td class="col-temps">
+                <span id="day-4-temps">Low 99.9&deg;/High 99.9&deg; F</span>
+              </td>
+            </tr>
+
+            <!-- Day 5 forecast -->
+            <tr class="forecast-row">
+              <td class="col-date">
+                <span id="day-5-date">11/23</span>
+              </td>
+              <td class="col-icon">
+                <img
+                  src="images/square.png"
+                  alt="Icon of current weather
+              conditions"
+                  id="day-5-icon"
+                  class="forecast-icon"
+                />
+              </td>
+              <td class="col-desc">
+                <span id="day-5-description">partly cloudy</span>
+              </td>
+              <td class="col-temps">
+                <span id="day-5-temps">Low 99.9&deg;/High 99.9&deg; F</span>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
